@@ -18,7 +18,8 @@ brew cleanup
 echo "Upgrading Homebrew cask programs (GUI apps and drivers)"
 brew cask outdated
 # TODO
-# Pipe the list to something that will reinstall all of them
+# Pipe the list to something that will `reinstall` all of them
+# Cleanup
 echo "Remove old verisons of GUI apps and drivers"
 brew cask cleanup
 
