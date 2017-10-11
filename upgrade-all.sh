@@ -1,32 +1,25 @@
 #! /bin/bash
 
 # Homebrew
-# Update lists of programs
-echo "Updating Homebrew lists"
-brew update
+    echo "Updating Homebrew lists"
+    brew update # Update lists of programs
 
 # CLI
-# Upgrade CLI programs
-echo "Upgrading Homebrew CLI apps"
-brew upgrade
-# Remove old versions of CLI programs
-echo "Removing old Homebrew CLI versions"
-brew cleanup
+    echo "Upgrading Homebrew CLI apps"
+    brew upgrade # Upgrade CLI programs
+    echo "Removing old Homebrew CLI versions"
+    brew cleanup # Remove old versions of CLI programs
 
 # GUI apps & Drivers
-# List apps that can be updated
-echo "Upgrading Homebrew cask programs (GUI apps and drivers)"
-brew cask outdated
-# TODO
-# Pipe the list to something that will `reinstall` all of them
-# Cleanup
-echo "Remove old verisons of GUI apps and drivers"
-brew cask cleanup
+    echo "Upgrading Homebrew cask programs (GUI apps and drivers)"
+    brew cask outdated # List apps that can be updated
+    # Todo
+        # Pipe the list to something that will `reinstall` all of them
+    echo "Removing old verisons of GUI apps and drivers"
+    brew cask cleanup # Cleanup
 
 # App Store
-# List upgradable apps
-echo "Checking for upgrades in Mac App Store"
-softwareupdate -l
-# Upgrade all
-echo "Upgrading programs from Mac App Store"
-sudo softwareupdate -ia
+    echo "Checking for upgrades in Mac App Store"
+    softwareupdate -l # List upgradable apps
+    echo "Upgrading programs from Mac App Store"
+    sudo softwareupdate -ia # Upgrade all
