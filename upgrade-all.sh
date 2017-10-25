@@ -4,7 +4,7 @@
     echo "Updating Homebrew lists"
     brew update # Update lists of programs
 
-# CLI
+# Homebrew Casks
     echo "Upgrading Homebrew CLI apps"
     brew upgrade # Upgrade CLI programs
     echo "Removing old Homebrew CLI versions"
