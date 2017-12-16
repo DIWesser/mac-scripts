@@ -54,10 +54,9 @@ if [[ $(command -v pip2 && command -v pip3) ]] ; then
             awk -F'(' '{print $1}' | paste -s -d' '  -)
         if [[ $pip2Outdated ]] ; then # If there are pips to update
             pip2 install --upgrade $pip2Outdated # Updates everything in string
-            echo "Removing old cask app versions."
-            brew cask cleanup # Cleanup
+            echo "Upgrading pip2 apps."
         else
-		echo "All casks are up to date."
+		    echo "All pip2 apps are up to date."
         fi
     fi
 
@@ -71,10 +70,9 @@ if [[ $(command -v pip2 && command -v pip3) ]] ; then
             awk -F'(' '{print $1}' | paste -s -d' '  -)
         if [[ $pip3Outdated ]] ; then # If there are pips to update
             pip3 install --upgrade $pip3Outdated # Updates everything in string
-            echo "Removing old cask app versions."
-            brew cask cleanup # Cleanup
+            echo "Upgrading pip3 apps."
         else
-		echo "All casks are up to date."
+		    echo "All pip3 are up to date."
         fi
     fi
 fi
@@ -103,5 +101,5 @@ fi
 #################################################################################
 # End Message
 #################################################################################
-    echo ""
-    echo -e "\033[1mUpdates complete.\033[0m"
+echo ""
+echo -e "\033[1mUpdates complete.\033[0m"
