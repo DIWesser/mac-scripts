@@ -4,6 +4,19 @@
 #while [ "$runTimer" = true ] ; do
     osascript -e 'display notification "Starting work timer.\nWork for the next 25 minutes" with title "Pomodoro"'
     sleep 1500 # Sleep 25 minutes
+    # Timing with progress bar (Not yet working)
+    #for i in `25` ; do
+    #    echo -ne "\r|"            # Return to start of line
+    #    for j in `$i` ; do      # Progress
+    #        echo -ne "#"
+    #    done
+    #    for k in `25-$i` ; do   # Pad with spaces
+    #        echo -ne " "
+    #    done
+    #    echo -ne "| $k/25"         # minutes completed as number
+    #    sleep 1               # Wait for one minute
+    #done
+    echo -ne "\n"
     osascript -e 'display notification "Take a break" with title "Pomodoro"'
     sleep 240 # Sleep 4 minutes
     osascript -e 'display notification "Break ends in 1 minute" with title "Pomodoro"'
