@@ -1,8 +1,19 @@
 #! /bin/bash
 
+# Basic Technique (https://en.wikipedia.org/wiki/Pomodoro_Technique)
+
+# 1. Decide on the task to be done.
+# 2. Set the pomodoro timer (traditionally to 25 minutes).
+# 3. Work on the task.
+# 4. End work when the timer rings and put a checkmark on a piece of paper.
+# 5. If you have fewer than four checkmarks, take a short break (3–5 minutes),
+#    then go to step 2.
+# 6. After four pomodoros, take a longer break (15–30 minutes), reset your
+#    checkmark count to zero, then go to step 1.
+
 #runTimer=true
 #while [ "$runTimer" = true ] ; do
-    osascript -e 'display notification "Starting work timer.\nWork for the next 25 minutes" with title "Pomodoro"'
+    osascript -e 'display notification "Starting work timer.\nWork for 25 minutes" with title "Pomodoro"'
     say "Begin."
     sleep 1500 # Sleep 25 minutes
     # Timing with progress bar (Not yet working)
