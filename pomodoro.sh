@@ -11,11 +11,21 @@
 # 6. After four pomodoros, take a longer break (15–30 minutes), reset your
 #    checkmark count to zero, then go to step 1.
 
+settings=$HOME/.config/my-scripts/pomodoro.conf
+
+# Use grep to find line for variable. Extracts everything between first and second ':'
+# Trims whitspace from both ends.
+# Regex matches start of line excluding whitespace.
+# Times are returned in seconds
+shortBreak=$(grep -iw '^\s*short break:' $settings | cut -d: -f2 | xargs)
+longBreak=$(grep -i '^\s*long break:' $settings | cut -d: -f2 | xargs)
+workPeriod=$(grep -i '^\s*work period:' $settings | cut -d: -f2 | xargs)
+
 #runTimer=true
 #while [ "$runTimer" = true ] ; do
     osascript -e 'display notification "Starting work timer.\nWork for 25 minutes" with title "Pomodoro"'
     say "Begin."
-    sleep 1500 # Sleep 25 minutes
+    sleep $workPeriod # Sleep 25 minutes
     # Timing with progress bar (Not yet working)
     #for i in `25` ; do
     #    echo -ne "\r|"            # Return to start of line
