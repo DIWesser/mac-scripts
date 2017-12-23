@@ -32,8 +32,8 @@ workPeriod=$(grep -iw '^\s*work period:' $settings | cut -d: -f2 | xargs)
 #runTimer=true
 #while [ "$runTimer" = true ] ; do
     # Work period
-    osascript -e 'display notification \
-        "Starting work timer.\nWork for 25 minutes" with title "Pomodoro"'
+    osascript -e \
+        'display notification "Starting work timer.\nWork for 25 minutes" with title "Pomodoro"'
     say "Begin."
     sleep $workPeriod # Sleep 25 minutes
     echo -ne "\n"
@@ -49,7 +49,7 @@ workPeriod=$(grep -iw '^\s*work period:' $settings | cut -d: -f2 | xargs)
     # End of break
     #osascript -e 'tell app "System Events" to display dialog\
     #    "Time to get back to work. Would you like to restart the timer?"'
-    osascript -e 'display notification \
-        "Beak over.\nRestart script to continue timer." with title "Pomodoro"'
+    osascript -e \
+    'display notification "Beak over.\nRestart script to continue timer." with title "Pomodoro"'
     say "Break period over."
 #done
