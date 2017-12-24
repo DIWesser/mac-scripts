@@ -37,6 +37,17 @@ togglApiToken=$(grep -iw '^\s*toggl api token:' $settings | cut -d: -f2 | xargs)
         'display notification "Starting work timer.\nWork for 25 minutes" with title "Pomodoro"'
         say "Begin."
 
+        # Start time tracking
+            curl -v -u $togglApiToken:api_token \
+                    -H "Content-Type: application/json" \
+                    -d '{"time_entry":{
+                            "description":"EMSP2390 Reading Response 2",
+                            "tags":["EMSP2390","writing"],
+                            "pid":88939415,
+                            "created_with":"curl"
+                        }}' \
+                    -X POST https://www.toggl.com/api/v8/time_entries/start
+
         sleep $workPeriod # Sleep 25 minutes
         echo
 
@@ -52,6 +63,17 @@ togglApiToken=$(grep -iw '^\s*toggl api token:' $settings | cut -d: -f2 | xargs)
         say "One minute warning."
         sleep 60
 
+        # Start time tracking
+            curl -v -u $togglApiToken:api_token \
+                    -H "Content-Type: application/json" \
+                    -d '{"time_entry":{
+                            "description":"EMSP2390 Reading Response 2",
+                            "tags":["break"],
+                            "pid":88939415,
+                            "created_with":"curl"
+                        }}' \
+                    -X POST https://www.toggl.com/api/v8/time_entries/start
+
     # End of break
         #osascript -e 'tell app "System Events" to display dialog\
         #    "Time to get back to work. Would you like to restart the timer?"'
@@ -60,4 +82,16 @@ togglApiToken=$(grep -iw '^\s*toggl api token:' $settings | cut -d: -f2 | xargs)
 
         read -p "Press any key to end break" -n 1 -s
         echo
+        
+        # End time tracking
+            # Find running time tracker
+            currentTimeTracker=$(
+                                    curl -v -u $togglApiToken:api_token \
+                                    -X GET https://www.toggl.com/api/v8/time_entries/current \
+                                    | awk -F 'id' '{print $2}' | cut -d: -f2 | cut -d, -f1
+                                )
+            # Kill it
+            curl -v -u $togglApiToken:api_token \
+	                -H "Content-Type: application/json" \
+                	-X PUT https://www.toggl.com/api/v8/time_entries/$currentTimeTracker/stop
 #done
