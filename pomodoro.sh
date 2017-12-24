@@ -24,6 +24,7 @@ settings=$HOME/.config/my-scripts/pomodoro.conf
 shortBreak=$(grep -iw '^\s*short break:' $settings | cut -d: -f2 | xargs)
 longBreak=$(grep -iw '^\s*long break:' $settings | cut -d: -f2 | xargs)
 workPeriod=$(grep -iw '^\s*work period:' $settings | cut -d: -f2 | xargs)
+togglApiToken=$(grep -iw '^\s*toggl api token:' $settings | cut -d: -f2 | xargs)
 
 ################################################################################
 # Run timer
