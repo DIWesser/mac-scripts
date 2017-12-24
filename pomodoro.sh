@@ -43,7 +43,7 @@ workPeriod=$(grep -iw '^\s*work period:' $settings | cut -d: -f2 | xargs)
         osascript -e 'display notification "Take a break" with title "Pomodoro"'
         say "Time to take a break."
 
-        read -n 1 -s -p "Press any key to start break"
+        read -p "Press any key to start break" -n 1 -s
         echo
 
         sleep `expr $shortBreak - 60` # Sleep for short break minus one minute for warning time
@@ -54,7 +54,9 @@ workPeriod=$(grep -iw '^\s*work period:' $settings | cut -d: -f2 | xargs)
     # End of break
         #osascript -e 'tell app "System Events" to display dialog\
         #    "Time to get back to work. Would you like to restart the timer?"'
-        osascript -e \
-        'display notification "Break over.\nRestart script to continue." with title "Pomodoro"'
+        osascript -e 'display notification "Break over." with title "Pomodoro"'
         say "Break period over."
+
+        read -p "Press any key to end break" -n 1 -s
+        echo
 #done
