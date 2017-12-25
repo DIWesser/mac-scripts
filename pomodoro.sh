@@ -15,9 +15,10 @@
 # Create settings variables
 ################################################################################
 
+appName=Pomodoro
 settings=$HOME/.config/my-scripts/pomodoro.conf
 
-# Use grep to find line for variable. Extracts everything between first and second ':'
+# grep line for variable. Extracts everything between first and second ':'
 # Trims whitspace from both ends.
 # Regex matches start of line excluding whitespace.
 # Times are returned in seconds
@@ -27,71 +28,94 @@ workPeriod=$(grep -iw '^\s*work period:' $settings | cut -d: -f2 | xargs)
 togglApiToken=$(grep -iw '^\s*toggl api token:' $settings | cut -d: -f2 | xargs)
 
 ################################################################################
+# Functions
+################################################################################
+
+function textToSpeech {
+    if [[ $(uname -s) == Darwin ]] ; then
+        say $1
+    elif [[ $(uname -s) == Linux ]] ; then
+        echo "Text to speech is not yet supported on Linux"
+    else
+        echo "Whatever you're running, text to speech doesn't work on it yet."
+    fi
+}
+
+function sendNotification {
+    if [[ $(uname -s) == Darwin ]] ; then
+        osascript \
+            -e "on run(argv)" \
+            -e "return display notification item 1 of argv" \
+            -e "end" \
+            -- "$1"
+    elif [[ $(uname -s) == Linux ]] ; then
+        echo -ne "Notifications are not yet supported on Linux."\
+                 "However, I run Linux so it is on my todo list.\n"
+    else
+        echo "Whatever you're running, notifications don't work on it yet."
+    fi
+}
+
+################################################################################
 # Run timer
 ################################################################################
 
-#runTimer=true
-#while [ "$runTimer" = true ] ; do
-    # Work period
-        osascript -e \
-        'display notification "Starting work timer.\nWork for 25 minutes" with title "Pomodoro"'
-        say "Begin."
+# Work period
+    sendNotification "Starting work timer.\nWork for 25 minutes"
+    textToSpeech "Begin."
 
-        # Start time tracking
-            curl -v -u $togglApiToken:api_token \
-                    -H "Content-Type: application/json" \
-                    -d '{"time_entry":{
-                            "description":"EMSP2390 Reading Response 2",
-                            "tags":["EMSP2390","writing"],
-                            "pid":88939415,
-                            "created_with":"curl"
-                        }}' \
-                    -X POST https://www.toggl.com/api/v8/time_entries/start
+    # Start time tracking
+        curl -sS -u $togglApiToken:api_token \
+            -H "Content-Type: application/json" \
+            -d '{"time_entry":{
+                "description":"EMSP2390 Reading Response 2",
+                "tags":["EMSP2390","writing"],
+                "pid":88939415,
+                "created_with":"curl"
+            }}' \
+            -X POST https://www.toggl.com/api/v8/time_entries/start
 
-        sleep $workPeriod # Sleep 25 minutes
-        echo
+    sleep $workPeriod # Sleep 25 minutes
+    echo
 
-    # Break period
-        osascript -e 'display notification "Take a break" with title "Pomodoro"'
-        say "Time to take a break."
+# Break period
+    sendNotification "Take a break"
+    textToSpeech "Time to take a break."
 
-        read -p "Press any key to start break" -n 1 -s
-        echo
+    read -p "Press any key to start break" -n 1 -s
+    echo
 
-        sleep `expr $shortBreak - 60` # Sleep for short break minus one minute for warning time
-        osascript -e 'display notification "Break ends in 1 minute" with title "Pomodoro"'
-        say "One minute warning."
-        sleep 60
+    sleep `expr $shortBreak - 60` # Take short break - 1 minute for warning
+    sendNotification "Break ends in 1 minute"
+    textToSpeech "One minute warning."
+    sleep 60
 
-        # Start time tracking
-            curl -v -u $togglApiToken:api_token \
-                    -H "Content-Type: application/json" \
-                    -d '{"time_entry":{
-                            "description":"EMSP2390 Reading Response 2",
-                            "tags":["break"],
-                            "pid":88939415,
-                            "created_with":"curl"
-                        }}' \
-                    -X POST https://www.toggl.com/api/v8/time_entries/start
+    # Start time tracking
+        curl -sS -u $togglApiToken:api_token \
+            -H "Content-Type: application/json" \
+            -d '{"time_entry":{
+                "description":"EMSP2390 Reading Response 2",
+                "tags":["break"],
+                "pid":88939415,
+                "created_with":"curl"
+            }}' \
+            -X POST https://www.toggl.com/api/v8/time_entries/start
 
-    # End of break
-        #osascript -e 'tell app "System Events" to display dialog\
-        #    "Time to get back to work. Would you like to restart the timer?"'
-        osascript -e 'display notification "Break over." with title "Pomodoro"'
-        say "Break period over."
+# End of break
+    sendNotification "Break over."
+    textToSpeech "Break period over."
 
-        read -p "Press any key to end break" -n 1 -s
-        echo
-        
-        # End time tracking
-            # Find running time tracker
-            currentTimeTracker=$(
-                                    curl -v -u $togglApiToken:api_token \
-                                    -X GET https://www.toggl.com/api/v8/time_entries/current \
-                                    | awk -F 'id' '{print $2}' | cut -d: -f2 | cut -d, -f1
-                                )
-            # Kill it
-            curl -v -u $togglApiToken:api_token \
-	                -H "Content-Type: application/json" \
-                	-X PUT https://www.toggl.com/api/v8/time_entries/$currentTimeTracker/stop
-#done
+    read -p "Press any key to end break" -n 1 -s
+    echo
+    
+    # End time tracking
+    # Find running time tracker
+    currentTimeTracker=$(
+        curl -sS -u $togglApiToken:api_token \
+            -X GET https://www.toggl.com/api/v8/time_entries/current \
+            | awk -F 'id' '{print $2}' | cut -d: -f2 | cut -d, -f1
+    )
+    # Kill it
+    curl -v -u $togglApiToken:api_token \
+    -H "Content-Type: application/json" \
+    -X PUT https://www.toggl.com/api/v8/time_entries/$currentTimeTracker/stop
