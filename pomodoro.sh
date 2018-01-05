@@ -48,11 +48,13 @@ function sendNotification {
             -e "return display notification item 1 of argv" \
             -e "end" \
             -- "$1"
+    elif [[ $(command -v zenity) ]] ; then
+        zenity --notification --text="$1"
     elif [[ $(uname -s) == Linux ]] ; then
-        echo -ne "Notifications are not yet supported on Linux."\
-                 "However, I run Linux so it is on my todo list.\n"
+        echo -ne "Notifications on Linux require zenity.\n"
     else
-        echo "Whatever you're running, notifications don't work on it yet."
+        echo -ne "Whatever you're running, notifications don't work on it yet."\
+		 "If your OS has a version of zenity, try installing that.\n"
     fi
 }
 
