@@ -6,6 +6,8 @@ if [[ $(uname -s) == Darwin ]] ; then
 elif [[ $(uname -s) == Linux ]] ; then
     sourceDir="/media/$(whoami)/TO GO"
 fi
+
+# Define destination path
 destDir="$HOME/Dropbox/Education/F. 2017-2018 Kings II Term 2"
 
 # If source path is usable
