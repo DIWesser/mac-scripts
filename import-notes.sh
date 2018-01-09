@@ -1,6 +1,10 @@
 #!/bin/bash
 
-sourceDir="/Volumes/TO GO"
+if [[ $(uname -s) == Darwin ]] ; then
+    sourceDir="/Volumes/TO GO"
+elif [[ $(uname -s) == Linux ]] ; then 
+    sourceDir="/media/$(whoami)/TO GO"
+fi
 destDir="$HOME/Dropbox/Education/F. 2017-2018 Kings II Term 2"
 
 if [ -d "$sourceDir" ] ; then
