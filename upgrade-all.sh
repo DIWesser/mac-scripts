@@ -104,8 +104,7 @@ fi
 if [[ $(command -v tlmgr) ]] ; then
     echo ""
     echo -e "\033[1mUpgrading LaTeX Packages\033[0m"
-    sudo tlmgr update --self
-    sudo tlmgr update --all
+    sudo tlmgr update --self --all
 fi
 #################################################################################
 # End Message
