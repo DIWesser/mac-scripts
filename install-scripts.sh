@@ -12,4 +12,5 @@ linkFolder="$HOME/bin"
 # Create directory
 mkdir -p ~/bin
 ln -s $sourceFolder/upgrade-all.sh $linkFolder/upgrade-all
-ln -s $sourceFolder/pomodoro.sh $linkFolder/pomodoro
+ln -s $sourceFolder/pomodoro.sh    $linkFolder/pomodoro
+ln -s $sourceFolder/mytime.sh      $linkFolder/mytime
