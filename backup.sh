@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sourceDir="Source/"
-destDir="Destination/"
+sourceDir="$HOME/Desktop/Source/"
+destDir="$HOME/Desktop/Destination/"
 archiveFolder="_CCC"
 
 rsync \
