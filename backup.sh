@@ -11,7 +11,7 @@
 sourceDir="/"
 destDir="/Volumes/DIW Boot 1/"
 archiveRoot="_CCC SafetyNet"
-archiveDir="$archiveRoot/$(date +%Y-%m-%d\ \(%B\ %d\)\ %H-%M-%S)"
+archiveDir="$archiveRoot/$(date +%Y-%m-%d\ \(%B\ $(date +%e | xargs)\)\ %H-%M-%S)"
 pruneValue=150  # Minimum archive size in GB
 
 #################################################################################
