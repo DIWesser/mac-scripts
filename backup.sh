@@ -31,6 +31,7 @@ fi
 rsync \
     --archive \
     --backup \
+    --delete-after \
     --backup-dir="$archiveDir" \
     --exclude-from="$exclude" \
     --verbose \
