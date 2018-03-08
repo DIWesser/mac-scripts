@@ -1,0 +1,6 @@
+/Volumes/*
+/Network/*
+/automount/*
+/.vol/*
+/private/Network/*
+/private/tftpboot/*
