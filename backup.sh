@@ -16,7 +16,7 @@ if [ ! -r "$sourceDir" ]; then
 fi
 
 if [ ! -w "$destDir" ]; then
-    "Destination $destDir not writeable - Cannot start the sync process"
+    echo "Destination $destDir not writeable - Cannot start the sync process"
     exit;
 fi
 
