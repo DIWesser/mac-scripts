@@ -16,7 +16,7 @@
 ################################################################################
 
 appName=Pomodoro
-settings=$HOME/.config/my-scripts/pomodoro.conf
+settings=$HOME/.config/diwesser/pomodoro.conf
 
 # grep line for variable. Extracts everything between first and second ':'
 # Trims whitspace from both ends.
