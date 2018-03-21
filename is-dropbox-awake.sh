@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while [[ $(dropbox status) == "Starting..." ]] ; do
+while [[ $(dropbox status) != "Up to date" ]] ; do
     if [[ $(dropbox status) == "Starting..." ]] ; then
         echo -ne "Dropbox hasn't woken up yet.\r"
         sleep 5
@@ -11,7 +11,7 @@ while [[ $(dropbox status) == "Starting..." ]] ; do
         then
             echo -ne "Dropbox is actually syncing (finally).\r"
             sleep 5
-    else
-        echo "IT'S DONE!!!!"
     fi
 done
+
+echo "IT'S DONE!!!!"
