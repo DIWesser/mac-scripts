@@ -25,7 +25,7 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
             echo -ne "\rDropbox is actually syncing (finally)."
     elif
         echo -ne "\rDropbox output an unrecognize message. Exiting script."
-        echo -ne "\nThe output of \`dropbox status\` is:"
+        echo -ne "\nThe output of \`dropbox status\` is:\n"
         dropbox status
     fi
     sleep 5
