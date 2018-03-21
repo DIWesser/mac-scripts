@@ -3,7 +3,7 @@
 # This script monitors for when Dropbox has finished syncing.
 
 startTime=$(date +%s)
-maxWaitTime=300       # Limit before erroring out in seconds
+maxWaitTime=300       # Time before erroring out in seconds
 
 # Loop every 5 seconds until Dropbox says it's done
 while [[ $(dropbox status) != "Up to date" ]] ; do
