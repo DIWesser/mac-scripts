@@ -17,8 +17,6 @@ elif [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
 elif [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
         cut -d'=' -f2) == "Unknown" ]] ; then
     powerSource="⚇ "
-else
-    powerSource="!"
 fi
 
 #echo $percentage% $powerSource
