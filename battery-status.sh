@@ -8,16 +8,21 @@
 percentage=$(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_CAPACITY= | cut -d'=' -f2)
 powerSource="!"
 
-if [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
-      cut -d'=' -f2) == "Discharging" ]] ; then
-    powerSource="🔋"
-elif [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
-        cut -d'=' -f2) == "Charging" ]] ; then
+if [[ -f /sys/class/power_supply/BAT0/uevent ]] ; then
+    if [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
+          cut -d'=' -f2) == "Discharging" ]] ; then
+        powerSource="🔋"
+    elif [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
+            cut -d'=' -f2) == "Charging" ]] ; then
+        powerSource="⚇ "
+    elif [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
+            cut -d'=' -f2) == "Unknown" ]] ; then
+        powerSource="⚇ "
+    fi
+    #echo $percentage% $powerSource
+    echo $powerSource$percentage%
+else
     powerSource="⚇ "
-elif [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
-        cut -d'=' -f2) == "Unknown" ]] ; then
-    powerSource="⚇ "
+    echo "$powerSource"
 fi
 
-#echo $percentage% $powerSource
-echo $powerSource$percentage%
