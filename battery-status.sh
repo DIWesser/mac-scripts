@@ -11,7 +11,7 @@ powerSource="!"
 if [[ -f /sys/class/power_supply/BAT0/uevent ]] ; then
     if [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
           cut -d'=' -f2) == "Discharging" ]] ; then
-        powerSource="🔋"
+        powerSource="⚪ "
     elif [[ $(cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_STATUS |
             cut -d'=' -f2) == "Charging" ]] ; then
         powerSource="⚇ "
