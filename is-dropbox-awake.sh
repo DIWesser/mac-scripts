@@ -37,6 +37,6 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
 done
 
 # Celebrate if it's finally done
-if [[ $(dropbox status) == "Up to date" ]]
+if [[ $(dropbox status) == "Up to date" ]] ; then
     echo "IT'S DONE!!!!"
 fi
