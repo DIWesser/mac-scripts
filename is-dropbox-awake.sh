@@ -23,10 +23,15 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
     elif [[ $(dropbox status | grep Syncing | cut -d' ' -f 1) == "Syncing" ]]
         then
             echo -ne "\rDropbox is actually syncing (finally)."
-    elif
+    elif [[ $(dropbox status) == "Dropbox isn't running!" ]] ; then
+        dropbox start
+        echo
+        echo -ne "\rDropbox was not running."
+    else
         echo -ne "\rDropbox output an unrecognize message. Exiting script."
         echo -ne "\nThe output of \`dropbox status\` is:\n"
         dropbox status
+        exit 1
     fi
     sleep 5
 done
