@@ -1,6 +1,19 @@
 #!/bin/bash
 #
 # This script monitors for when Dropbox has finished syncing.
+#
+# I should probably incorporate this into the script, but for now:
+#
+# If you have too many files in Dropbox, it will not have permission to monitor
+# to monitor all of the contents of the Dropbox folder. This can be fixed either
+# by increasing the number of files that can be monitored. To do this until the
+# next reboot, run:
+#     sudo sysctl fs.inotify.max_user_instances=256
+#     sudo sysctl fs.inotify.max_user_watches=1048576
+# To do so perminantly, add the following lines to /etc/sysctl.conf
+#     fs.inotify.max_user_watches = 1048576
+#     fs.inotify.max_user_instances = 256
+# Source: https://askubuntu.com/questions/247461/
 
 startTime=$(date +%s)
 maxWaitTime=300       # Time before erroring out in seconds
