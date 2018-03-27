@@ -37,6 +37,8 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
         then
             echo -ne "\rDropbox is actually syncing (finally)."
     elif [[ $(dropbox status) == "Dropbox isn't running!" ]] ; then
+        dropbox stop
+        killall dropbox
         dropbox start
         echo
         echo -ne "\rDropbox was not running."
