@@ -1,19 +1,23 @@
 #!/bin/bash
 #
 # This script monitors for when Dropbox has finished syncing.
+#
+# Todo:
+# - This script calls `dropbox status` too many times. It should call it once.
 
+# If Dropbox is up to date
+if [[ $(dropbox status) == "Up to date" ]] ; then
+    echo "❐ ✓"
 # If Dropbox is just starting up
-if [[ $(dropbox status) == "Starting..." ]] ; then
-    echo "❐    "
+elif [[ $(dropbox status) == "Starting..." ]] ; then
+    echo "❐ starting"
 # If Dropbox is indexing
-elif [[ $(dropbox status | grep Indexing) == "Indexing..." ]] ; then
-    echo "❐ ..."
+elif [[ $(dropbox status | grep "Indexing...") ]] ; then
+    echo "❐ indexing"
 # If Dropbox is syncing
-elif [[ $(dropbox status | grep Syncing | cut -d' ' -f 1) == "Syncing" ]] ; then
+elif [[ $(dropbox status | grep Syncing | cut -d' ' -f 1) ]] ; then
     echo ❐ $(dropbox status | grep "Syncing" | cut -d'(' -f2 | cut -d' ' -f1)
     #echo "⇵ ↻"
-elif [[ $(dropbox status) == "Up to date" ]] ; then
-    echo "❐ ✓"
 else
     echo "❐ !!!"
 fi
