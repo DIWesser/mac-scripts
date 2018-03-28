@@ -2,6 +2,12 @@
 #
 # This script monitors for when Dropbox has finished syncing.
 #
+# Todo:
+# - Make this thing more efficient. It really shouldn't call `dropbox status` so
+#   many times to figure out one bit of info.
+#
+# Notes:
+#
 # I should probably incorporate this into the script, but for now:
 #
 # If you have too many files in Dropbox, it will not have permission to monitor
