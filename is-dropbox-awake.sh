@@ -32,7 +32,7 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
         # Timeout if Dropbox is frozen
         if [[ $(date +%s) -ge $startTime+$maxWaitTime ]] ; then
             echo -ne "\rDropbox has been starting for five minutes."
-            echo -ne " You may need to restart it."
+            echo -ne " You may need to restart it.\n"
             exit 1
         fi
     # If Dropbox is indexing
