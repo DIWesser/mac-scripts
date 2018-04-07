@@ -5,6 +5,7 @@
 # Todo:
 # - Make this thing more efficient. It really shouldn't call `dropbox status` so
 #   many times to figure out one bit of info.
+# - Read maxWaitTime from config file, default to 5 minutes
 #
 # Notes:
 #
