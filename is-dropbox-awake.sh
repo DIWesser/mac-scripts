@@ -48,7 +48,7 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
         killall dropbox
         dropbox start
         echo
-        echo -ne "\rDropbox was not running."
+        echo -ne "\rDropbox was not running. I started it."
     else
         echo -ne "\rDropbox output an unrecognize message. Exiting script."
         echo -ne "\nThe output of \`dropbox status\` is:\n"
@@ -60,5 +60,5 @@ done
 
 # Celebrate if it's finally done
 if [[ $(dropbox status) == "Up to date" ]] ; then
-    echo "IT'S DONE!!!!"
+    echo -ne "\rIT'S DONE!!!!\n"
 fi
