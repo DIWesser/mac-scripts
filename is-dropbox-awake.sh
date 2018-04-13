@@ -5,6 +5,7 @@
 # Todo:
 # - Make this thing more efficient. It really shouldn't call `dropbox status` so
 #   many times to figure out one bit of info.
+# - Read maxWaitTime from config file, default to 5 minutes
 #
 # Notes:
 #
@@ -32,7 +33,7 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
         # Timeout if Dropbox is frozen
         if [[ $(date +%s) -ge $startTime+$maxWaitTime ]] ; then
             echo -ne "\rDropbox has been starting for five minutes."
-            echo -ne " You may need to restart it."
+            echo -ne " You may need to restart it.\n"
             exit 1
         fi
     # If Dropbox is indexing
@@ -47,7 +48,7 @@ while [[ $(dropbox status) != "Up to date" ]] ; do
         killall dropbox
         dropbox start
         echo
-        echo -ne "\rDropbox was not running."
+        echo -ne "\rDropbox was not running. I started it."
     else
         echo -ne "\rDropbox output an unrecognize message. Exiting script."
         echo -ne "\nThe output of \`dropbox status\` is:\n"
@@ -59,5 +60,5 @@ done
 
 # Celebrate if it's finally done
 if [[ $(dropbox status) == "Up to date" ]] ; then
-    echo "IT'S DONE!!!!"
+    echo -ne "\rIT'S DONE!!!!\n"
 fi
