@@ -11,6 +11,10 @@
 # 6. After four pomodoros, take a longer break (15–30 minutes), reset your
 #    checkmark count to zero, then go to step 1.
 
+# Todo:
+#
+# - Add support for festival, flight, and/or mimic TTS
+
 ################################################################################
 # Create settings variables
 ################################################################################
