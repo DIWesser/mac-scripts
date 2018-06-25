@@ -107,6 +107,14 @@ if [[ $(command -v tlmgr) ]] ; then
     sudo tlmgr update --self --all
 fi
 #################################################################################
+# Microsoft Office
+#################################################################################
+if [[ $(command -v /Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate) ]] ; then
+    echo ""
+    echo -e "\033[1mUpgrading Microsoft Office Programs\033[0m"
+    /Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install
+fi
+#################################################################################
 # End Message
 #################################################################################
 echo ""
