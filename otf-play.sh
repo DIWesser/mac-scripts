@@ -8,19 +8,20 @@
 #   otf-play -n/--next <url>     # Add as next song
 #   otf-play -p/--play           # Start playlist
 #   otf-play -c/--clear          # clear playlist
+#   otf-play -q/--queue          # Print title of songs in queue
 #
 # Todo:
-#   - Add -l/--list flag that lists titles of videos
 #   - If no flags given, treat as -p/--play
 
-playlist="$HOME/.config/diwesser/otf-playlist"
 programName="otf-play"
+playlist="$HOME/.config/diwesser/otf-playlist"
 
 play=false
 topOfList=false
 clearPlaylist=false
 nextSong="null"
 printHelp=false
+listTitles=false
 
 # Get options
 while :; do
@@ -30,8 +31,9 @@ while :; do
         -c|--clear) clearPlaylist=true ;;
         -n|--next) newSong="$2" && topOfList=true ;;
         -p|--play) play=true ;;
+        -q|--queue) listTitles=true ;;
         --) ;;
-        -?*) echo "Invalid option: -$OPTARG" ;;
+        -?*) echo "Invalid option: $1" ;;
         *)
             break
     esac
@@ -65,14 +67,22 @@ elif [[ $clearPlaylist == true ]] ; then
     rm $playlist
     touch $playlist
 
+# -q|--queue
+# Print the titles of the songs
+elif [[ $listTitles == true ]] ; then
+    while read nextInCue; do
+        youtube-dl --get-title $nextInCue
+    done < $playlist
+
 # -h|-\?|--help
 # Print help text
-elif [[ $printHelp ]] ; then
+elif [[ $printHelp == true ]] ; then
     echo "On The Fly PLAYlist is a script for making"
     echo "disposable Youtube playlists."
     echo ""
-    echo " -a/--add <url>    # Add song to end of playlist"
-    echo " -n/--next <url>   # Add as next song"
-    echo " -p/--play         # Start playlist"
-    echo " -c/--clear        # clear playlist"
+    echo " -a|--add <url>    # Add song to end of playlist"
+    echo " -n|--next <url>   # Add as next song"
+    echo " -p|--play         # Start playlist"
+    echo " -q|--queue        # Print cued titles in order"
+    echo " -c|--clear        # Clear playlist"
 fi
