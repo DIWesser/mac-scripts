@@ -38,17 +38,17 @@ while :; do
     shift
 done
 
-# -n/--next
+# -n|--next
 # Add song to top of playlist
 if [[ $newSong && $topOfList == true ]] ; then
     echo "$(echo "$newSong" | cat - $playlist)" > $playlist
 
-# -a/--add
+# -a|--add
 # Add song to end of playlist
 elif [[ $newSong && $topOfList == false ]] ; then
     echo "$newSong" >> $playlist
 
-# -p/--play
+# -p|--play
 # Play song
 elif [[ $play == true ]] ; then
     while [[ $(cat $playlist) ]] ; do       # While lines in playlist
@@ -59,11 +59,14 @@ elif [[ $play == true ]] ; then
     done
     echo "No songs in playlist"
 
-# -c/--clear
+# -c|--clear
 # Clear playlist
 elif [[ $clearPlaylist == true ]] ; then
     rm $playlist
     touch $playlist
+
+# -h|-\?|--help
+# Print help text
 elif [[ $printHelp ]] ; then
     echo "On The Fly PLAYlist is a script for making"
     echo "disposable Youtube playlists."
