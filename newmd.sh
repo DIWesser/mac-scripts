@@ -29,10 +29,13 @@ course=""
 lecturer=""
 directory=$(pwd)
 fileName="$date $title.md"
-filePath="$fileName/$directory"
+fullPath="$fileName/$directory"
 title=""
 docType=""
 
+
+# Make sure file exists
+touch "$fullPath"
 
 # Enable header fields based on document type
 if [[ $docType == "courseLectureNote" ]] ; then
@@ -48,20 +51,20 @@ else
 fi
 
 
-echo "---" >> $filePath
+echo "---" >> $fullPath
 if [[ $headerCreationDate == true ]] ; then
-    echo "created: $(env TZ=$timeZone date +'%Y-%m-%d')" >> $filePath
+    echo "created: $(env TZ=$timeZone date +'%Y-%m-%d')" >> $fullPath
 fi
 
 if [[ $headerCourse == true ]] ; then
-    echo "$course" >> $filePath
+    echo "$course" >> $fullPath
 fi
 
 if [[ $headerLecturer == true ]] ; then
-    echo "$lecturer" >> $filePath
+    echo "$lecturer" >> $fullPath
 fi
 
 if [[ $headerAuthor == true ]] ; then
-    echo "author: $author" >> $filePath
+    echo "author: $author" >> $fullPath
 fi
-echo "---" >> $filePath
+echo "---" >> $fullPath
