@@ -1,19 +1,29 @@
-#! /bin/bash
+#!/bin/bash
 
-timeZone = "America/Halifax"
-author = "Daniel Wesser"
-newFile = 
+timeZone="America/Halifax"
+author="Daniel Wesser"
+title=
+newFile=
 
-includeCreationDate = true
-includeAuthor = true
-includeCourse = false
-includeInstructor = false
+headerCreationDate=true
+headerAuthor=true
+headerCourse=false
+headerLecturer=false
+headerTitle=false
+headerDue=false
+headerPublisher=false
+headerUrl=false
+headerMirrorUrl=false
+headerTags=false
+printHelp=false
+
+
 
 echo "---" >> $newFile
-if [[ $includeCreationDate == true ]] ; then
+if [[ $headerCreationDate == true ]] ; then
     echo "created: $(env TZ=$timeZone date +'%Y-%m-%d')" >> $newFile
 fi
-if [[ $includeAuthor == true ]] ; then
+if [[ $headerAuthor == true ]] ; then
     echo "author: $author" >> $newFile
 fi
 echo "---" >> $newFile
