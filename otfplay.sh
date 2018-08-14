@@ -4,17 +4,17 @@
 # from youtube.
 #
 # Usage:
-#   otf-play -a/--add <url>      # Add song to end of playlist
-#   otf-play -n/--next <url>     # Add as next song
-#   otf-play -p/--play           # Start playlist
-#   otf-play -c/--clear          # clear playlist
-#   otf-play -q/--queue          # Print title of songs in queue
+#   otfplay -a/--add <url>      # Add song to end of playlist
+#   otfplay -n/--next <url>     # Add as next song
+#   otfplay -p/--play           # Start playlist
+#   otfplay -c/--clear          # clear playlist
+#   otfplay -q/--queue          # Print title of songs in queue
 #
 # Todo:
 #   - If no flags given, treat as -p/--play
 
-programName="otf-play"
-playlist="$HOME/.config/diwesser/otf-playlist"
+programName="otfplay"
+playlist="$HOME/.config/diwesser/otfplaylist"
 
 play=false
 topOfList=false
