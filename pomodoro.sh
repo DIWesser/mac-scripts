@@ -62,16 +62,8 @@ function sendNotification {
     fi
 }
 
-################################################################################
-# Run timer
-################################################################################
-
-    ############################################################################
-    # Work period
-    ############################################################################
-    sendNotification "Starting work timer.\nWork for 25 minutes"
-    textToSpeech "Begin."
-
+# THIS IS A SHIT SHOW RIGHT NOW. DON'T USE IT!!!!!!!!!!!
+function timeTracking {
     # Start time tracking
     curl -sS -u $togglApiToken:api_token \
         -H "Content-Type: application/json" \
@@ -82,6 +74,42 @@ function sendNotification {
             "created_with":"curl"
         }}' \
         -X POST https://www.toggl.com/api/v8/time_entries/start
+
+    # Start time tracking
+    curl -sS -u $togglApiToken:api_token \
+        -H "Content-Type: application/json" \
+        -d '{"time_entry":{
+            "description":"EMSP2390 Reading Response 2",
+            "tags":["break"],
+            "pid":88939415,
+            "created_with":"curl"
+        }}' \
+        -X POST https://www.toggl.com/api/v8/time_entries/start
+
+    # End time tracking
+    # Find running time tracker
+    runningTimeTracker=$(
+        curl -sS -u $togglApiToken:api_token \
+            -X GET https://www.toggl.com/api/v8/time_entries/current \
+            | awk -F 'id' '{print $2}' | cut -d: -f2 | cut -d, -f1
+    )
+    # Kill it
+    curl -v -u $togglApiToken:api_token \
+    -H "Content-Type: application/json" \
+    -X PUT https://www.toggl.com/api/v8/time_entries/$runningTimeTracker/stop
+
+}
+
+################################################################################
+# Run timer
+################################################################################
+
+    ############################################################################
+    # Work period
+    ############################################################################
+    sendNotification "Starting work timer.\nWork for 25 minutes"
+    textToSpeech "Begin."
+
 
     sleep $workPeriod # Sleep 25 minutes
     echo
@@ -100,17 +128,6 @@ function sendNotification {
     textToSpeech "One minute warning."
     sleep 60
 
-    # Start time tracking
-    curl -sS -u $togglApiToken:api_token \
-        -H "Content-Type: application/json" \
-        -d '{"time_entry":{
-            "description":"EMSP2390 Reading Response 2",
-            "tags":["break"],
-            "pid":88939415,
-            "created_with":"curl"
-        }}' \
-        -X POST https://www.toggl.com/api/v8/time_entries/start
-
     ############################################################################
     # End of break
     ############################################################################
@@ -119,15 +136,3 @@ function sendNotification {
 
     read -p "Press any key to end break" -n 1 -s
     echo
-
-    # End time tracking
-    # Find running time tracker
-    runningTimeTracker=$(
-        curl -sS -u $togglApiToken:api_token \
-            -X GET https://www.toggl.com/api/v8/time_entries/current \
-            | awk -F 'id' '{print $2}' | cut -d: -f2 | cut -d, -f1
-    )
-    # Kill it
-    curl -v -u $togglApiToken:api_token \
-    -H "Content-Type: application/json" \
-    -X PUT https://www.toggl.com/api/v8/time_entries/$runningTimeTracker/stop
