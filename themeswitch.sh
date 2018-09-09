@@ -48,7 +48,7 @@ dayNight(){
 }
 
 if [[ $(dayNight) == "day" ]] ; then
-    setTheme "Minwaita-Vanilla"
+    setTheme "$dayTheme"
 else
-    setTheme "Minwaita-Vanilla-Dark"
+    setTheme "$nightTheme"
 fi
