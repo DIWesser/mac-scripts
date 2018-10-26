@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # This script should symlink the everything that works
 
@@ -20,3 +20,4 @@ ln -s $sourceFolder/pomodoro.sh    $linkFolder/pomodoro
 ln -s $sourceFolder/themeswitch.sh $linkFolder/themeswitch
 ln -s $sourceFolder/timer.sh       $linkFolder/timer
 ln -s $sourceFolder/wanip.sh       $linkFolder/wanip
+ln -s $sourceFolder/calc.sh        $linkFolder/calc
