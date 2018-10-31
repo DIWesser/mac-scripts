@@ -7,21 +7,25 @@ debugOutput=false
 timeZone="America/Halifax"          # Enter "system" to use system time
 location="CAXX0183"                 # Location for weather.com
 dayTheme="Minwaita-Vanilla"         # Light theme
-nightTheme="Minwaita-Vanilla-Dark"  # Dark theme
-dayTimeStart="0630"                # Start of day colours
-nightTimeStart="2000"              # Start of night colours
+nightTheme="macOS Mojave Dark mode" # Dark theme
+dayIcon="Suru"                      # Light Icons
+nightIcon="macOS"                   # Dark Icons
+dayTimeStart="0630"                 # Start of day colours
+nightTimeStart="2000"               # Start of night colours
 
 
 # Change GTK theme
 # - Takes theme name as string
 setTheme() {
     local theme="$1"
+    local icons="$2"
     if [[ $debugOutput == true ]] ; then
         echo "\`setTheme\` function detects theme as $theme."
         echo "Changing theme."
     fi
     gsettings set org.gnome.desktop.interface gtk-theme "$theme"
     gsettings set org.gnome.desktop.wm.preferences theme "$theme"
+    gsettings set org.gnome.desktop.interface icon-theme "$icons"
 }
 
 
@@ -48,7 +52,7 @@ dayNight(){
 }
 
 if [[ $(dayNight) == "day" ]] ; then
-    setTheme "$dayTheme"
+    setTheme "$dayTheme" "$dayIcon"
 else
-    setTheme "$nightTheme"
+    setTheme "$nightTheme" "$nightIcon"
 fi
