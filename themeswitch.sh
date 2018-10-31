@@ -6,7 +6,7 @@
 debugOutput=false
 timeZone="America/Halifax"          # Enter "system" to use system time
 location="CAXX0183"                 # Location for weather.com
-dayTheme="Minwaita-Vanilla"         # Light theme
+dayTheme="Ant"                      # Light theme
 nightTheme="macOS Mojave Dark mode" # Dark theme
 dayIcon="Suru"                      # Light Icons
 nightIcon="macOS"                   # Dark Icons
