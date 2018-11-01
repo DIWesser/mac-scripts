@@ -15,7 +15,8 @@ nightTimeStart="2000"                # Start of night colours
 
 
 # Change GTK theme
-# - Takes theme name as string
+# - Takes theme name then icon set name as strings
+# - Returns nothing, sets GTK theme and icons
 setTheme() {
     local theme="$1"
     local icons="$2"
