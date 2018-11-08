@@ -109,7 +109,7 @@ createHeader() {
 # Requires: $notePath, $title
 appendTitle() {
     echo "" >> "$notePath"
-    echo "$title" >> "$notePath"
+    echo "## $title" >> "$notePath"
     echo "" >> "$notePath"
 }
 
