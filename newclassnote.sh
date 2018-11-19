@@ -131,4 +131,4 @@ createHeader
 appendTitle
 
 # Open file
-$EDITOR "$notePath" &
+$EDITOR "$notePath"
