@@ -1,4 +1,5 @@
 #!/bin/bash
 # Opens Stanford Encyclopedia of Philosophy as a Dictionary app
+# Requires a firefox profile named `app`
 
-chromium-browser --app=https://plato.stanford.edu/search/
+firefox -P app -new-window https://plato.stanford.edu/search/
