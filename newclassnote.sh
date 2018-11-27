@@ -45,7 +45,7 @@ findCourse() {
             lecturer="Stephanie Kapusta"
         fi
     elif [[ "$dayOfWeek" == "Tuesday" ]] ; then
-        if [[ "$currentTime" > "1015" && "$currentTime" < "1125" ]] ; then
+        if [[ "$currentTime" > "0915" && "$currentTime" < "1125" ]] ; then
             course="CTMP 3121"
             lecturer="Dorota Glowacka"
         elif [[ "$currentTime" > "1615" && "$currentTime" < "1755" ]] ; then
