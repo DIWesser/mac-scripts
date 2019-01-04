@@ -47,6 +47,8 @@ findVersion() {
         possible_version="$(lsb_release --description | cut -d ':' -f 2 \
             | cut -d 'u' -f 3)"
         possible_version="$(trimWhitespace $possible_version)"
+    elif [[ "$possible_distro" == "macOS" ]] ; then
+        possible_version="$(sw_vers -productVersion)"
     fi
     echo -n "$possible_version"
 }
