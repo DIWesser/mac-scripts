@@ -15,6 +15,7 @@
 
 
 timeZone="America/Halifax"
+courseFound=false
 creationDate="$(env TZ=$timeZone date +'%Y-%m-%d')"
 course=""
 lecturer=""
@@ -38,38 +39,40 @@ findCourse() {
     local currentTime=$(env TZ=$timeZone date +'%H%M')
     if [[ "$dayOfWeek" == "Monday" ]] ; then
         if [[ "$currentTime" > "1015" && "$currentTime" < "1225" ]] ; then
+            courseFound=true
             course="CTMP 3000"
             lecturer="Gordon McOuat"
-        elif [[ "$currentTime" > "1315" && "$currentTime" < "1425" ]] ; then
-            course="PHIL 2475"
-            lecturer="Stephanie Kapusta"
+        elif [[ "$currentTime" > "1515" && "$currentTime" < "1655" ]] ; then
+            courseFound=true
+            course="CSCI 3101"
+            lecturer="Darren Abramson"
         fi
     elif [[ "$dayOfWeek" == "Tuesday" ]] ; then
-        if [[ "$currentTime" > "0915" && "$currentTime" < "1125" ]] ; then
-            course="CTMP 3121"
-            lecturer="Dorota Glowacka"
-        elif [[ "$currentTime" > "1615" && "$currentTime" < "1755" ]] ; then
-            course="LAWS 2510"
-            lecturer="Dale Darling"
+        if [[ "$currentTime" > "1245" && "$currentTime" < "1425" ]] ; then
+            courseFound=true
+            course="PHIL 2020"
+            lecturer="Greg Scherkoske"
         fi
     elif [[ "$dayOfWeek" == "Wednesday" ]] ; then
         if [[ "$currentTime" > "1015" && "$currentTime" < "1125" ]] ; then
+            courseFound=true
             course="CTMP 3000"
-        elif [[ "$currentTime" > "1315" && "$currentTime" < "1425" ]] ; then
-            course="PHIL 2475"
-            lecturer="Stephanie Kapusta"
+        elif [[ "$currentTime" > "1515" && "$currentTime" < "1655" ]] ; then
+            courseFound=true
+            course="CSCI 3101"
+            lecturer="Darren Abramson"
         fi
     elif [[ "$dayOfWeek" == "Thursday" ]] ; then
-        if [[ "$currentTime" > "0915" && "$currentTime" < "1025" ]] ; then
-            course="CTMP 3121"
-        elif [[ "$currentTime" > "1615" && "$currentTime" < "1755" ]] ; then
-            course="LAWS 2510"
-            lecturer="Dale Darling"
+        if [[ "$currentTime" > "1245" && "$currentTime" < "1425" ]] ; then
+            courseFound=true
+            course="PHIL 2020"
+            lecturer="Greg Scherkoske"
         fi
     elif [[ "$dayOfWeek" == "Friday" ]] ; then
-        if [[ "$currentTime" > "1315" && "$currentTime" < "1425" ]] ; then
-            course="PHIL 2475"
-            lecturer="Stephanie Kapusta"
+        if [[ "$currentTime" > "1715" && "$currentTime" < "2025" ]] ; then
+            courseFound=true
+            course="CTMP 2203"
+            lecturer="Michael Bennett"
         fi
     fi
 
@@ -113,22 +116,29 @@ appendTitle() {
     echo "" >> "$notePath"
 }
 
-################################################################################
 # Main
-################################################################################
+main() {
+    # Find out what the course and lecturer are
+    findCourse
 
-# Find out what the course and lecturer are
-findCourse
+    # If no course is detected, stop.
+    if [[ $courseFound == false ]] ; then
+        echo "You do not have any classes scheduled at this time."
+        exit 1
+    fi
 
-# Ask user what title they want to give the note
-getTitle
+    # Ask user what title they want to give the note
+    getTitle
 
-# Create file
-touch "$notePath"
+    # Create file
+    touch "$notePath"
 
-# Fill in file header and title
-createHeader
-appendTitle
+    # Fill in file header and title
+    createHeader
+    appendTitle
 
-# Open file
-$EDITOR "$notePath"
+    # Open file
+    $EDITOR "$notePath"
+}
+
+main
