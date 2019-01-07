@@ -116,6 +116,7 @@ appendTitle() {
     echo "" >> "$notePath"
 }
 
+
 # Main
 main() {
     # Find out what the course and lecturer are
