@@ -27,10 +27,6 @@ notePath=""
 author="Daniel Wesser"
 
 
-################################################################################
-# Functions
-################################################################################
-
 # Requires: timezone
 # Takes no input, sets $course, $lecturer, and $noteFolder
 # Determines course and lecturer based on hard-coded schedule
