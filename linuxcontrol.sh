@@ -17,7 +17,7 @@ configDirectory="$HOME/.config/diwesser"
 set_controlled_hosts () {
 
     if check_if_controlled ; then
-        echo "Control is already in place"
+        echo "Block is already in place"
     else
     
         # Backup current /etc/hosts
