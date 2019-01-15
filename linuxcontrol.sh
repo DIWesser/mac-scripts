@@ -38,8 +38,10 @@ restore_original_hosts () {
     
     # Copy backup of original hosts file to /etc/hosts
     cp "$configDirectory/original_hosts_file" "/etc/hosts"
+    
+    set_control_status uncontrolled
 
-    echo "block removed"
+    echo "Block removed"
 }
 
 
