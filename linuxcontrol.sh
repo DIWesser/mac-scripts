@@ -38,7 +38,7 @@ restore_original_hosts () {
     
     # Copy backup of original hosts file to /etc/hosts
     cp "$configDirectory/original_hosts_file" "/etc/hosts"
-    
+
     set_control_status uncontrolled
 
     echo "Block removed"
@@ -87,6 +87,12 @@ main () {
     elif [[ "$1" == "end" ]] ; then
         echo "Removing block"
         restore_original_hosts
+    elif [[ "$1" == "status" ]] ; then
+        if check_if_controlled ; then
+            echo "Block is enabled"
+        else
+            echo "Block is not enabled"
+        fi
     else
         echo "Error from '$functionName': Unrecognized command."
     fi
