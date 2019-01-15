@@ -15,12 +15,21 @@ configDirectory="$HOME/.config/diwesser"
 
 # Set /etc/hosts to controlled state.
 set_controlled_hosts () {
-    
-    # Backup current /etc/hosts
-    cp /etc/hosts "$configDirectory/original_hosts_file"
 
-    # Append blocked url rules to /etc/hosts
-    convert_urls_to_hosts >> /etc/hosts
+    if check_if_controlled ; then
+        echo "Control is already in place"
+    else
+    
+        # Backup current /etc/hosts
+        cp /etc/hosts "$configDirectory/original_hosts_file"
+
+        # Append blocked url rules to /etc/hosts
+        convert_urls_to_hosts >> /etc/hosts
+        
+        set_control_status controlled
+
+        echo "Block set"
+    fi
 }
 
 
@@ -29,6 +38,8 @@ restore_original_hosts () {
     
     # Copy backup of original hosts file to /etc/hosts
     cp "$configDirectory/original_hosts_file" "/etc/hosts"
+
+    echo "block removed"
 }
 
 
@@ -43,6 +54,40 @@ convert_urls_to_hosts () {
 }
 
 
-set_controlled_hosts
+# Checks if control is enabled.
+# Returns true of false boolean
+check_if_controlled () {
+    if grep -q -x "controlled" "$configDirectory/linux_control_status"; then
+        true
+    elif grep -q -x "uncontrolled" "$configDirectory/linux_control_status"; then
+        false
+    fi
+}
 
-#restore_original_hosts
+
+# Sets controlled status
+# Takes input as either "controlled" or "uncontrolled"
+set_control_status () {
+    if [[ "$1" == "controlled" ]] ; then
+        echo "controlled" > "$configDirectory/linux_control_status"
+    elif [[ "$1" == "uncontrolled" ]] ; then
+        echo "uncontrolled" > "$configDirectory/linux_control_status"
+    fi
+}
+
+
+main () {
+    local functionName="main"
+
+    if [[ "$1" == "start" ]] ; then
+        echo "Setting block"
+        set_controlled_hosts
+    elif [[ "$1" == "end" ]] ; then
+        echo "Removing block"
+        restore_original_hosts
+    else
+        echo "Error from '$functionName': Unrecognized command."
+    fi
+}
+
+main "$@"
