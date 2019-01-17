@@ -116,8 +116,17 @@ remove_block_when_expired () {
 # Assumes block starts now
 # Takes block time in minutes
 set_block_expiration () {
-    echo "$(epoc_now_plus_min $1)" > $endBlockTimeFile
+    epoc_now_plus_min "$1" > "$endBlockTimeFile"
 }
+
+
+# Starts block and sets time for it to expire
+# Takes block length in minutes
+start_block_with_expiration () {
+    set_block_expiration "$1"
+    set_blocked_hosts
+}
+
 
 main () {
     local functionName="main"
