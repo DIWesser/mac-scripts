@@ -15,6 +15,7 @@
 # - Finding block end time
 # - Finding block end time but pretty (this is a real mess and the source of all
 #   shellcheck violations at the moment)
+# - Move block end time storage to a non-userspace location
 #
 # Current obvious security problems:
 # - List of urls is not sanitized or validated
