@@ -4,11 +4,20 @@
 # for blocking destracting websites for an arbitrary period of time.
 #
 # Todo:
-# - Add timed blocking
+# - Automatically remove expired block (Is this just a deamon in bash?)
 # - Add ability to add to distracting url list
 # - Update distracting url list if change made while block is in place
-# - Impliment flags for different modes of operation (e.g. blocking, unblocking)
 # - Add support for swiching between lists or merging lists
+# - Consistent function names (this would be halfway to a rewrite)
+#
+# Possibly move to function:
+# - Wiping block end time
+# - Finding block end time
+# - Finding block end time but pretty (this is a real mess and the source of all
+#   shellcheck violations at the moment)
+#
+# Current obvious security problems:
+# - Temporarily stores /etc/hosts in user space
 
 configDirectory="$HOME/.config/diwesser"
 statusFile="$configDirectory/linux_control_status"
@@ -173,6 +182,13 @@ main () {
             echo "Block is not enabled"
         fi
 
+    elif [[ "$1" == "help" ]] ; then
+        echo "The following commands are accepted:"
+        echo "  start --- Starts block. Requires duration in minutes."
+        echo "  endless - Starts block without end"
+        echo "  end ----- Ends expired blocks."
+        echo "  purge --- Ends all blocks. Overrides timer."
+        echo "  status -- Prints block status."
     else
         echo "Error from '$functionName': Unrecognized command."
     fi
