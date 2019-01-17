@@ -13,10 +13,10 @@
 configDirectory="$HOME/.config/diwesser"
 
 
-# Set /etc/hosts to controlled state.
-set_controlled_hosts () {
+# Set /etc/hosts to blocked state.
+set_blocked_hosts () {
 
-    if check_if_controlled ; then
+    if check_if_blocked ; then
         echo "Block is already in place"
     else
     
@@ -26,20 +26,20 @@ set_controlled_hosts () {
         # Append blocked url rules to /etc/hosts
         convert_urls_to_hosts >> /etc/hosts
         
-        set_control_status controlled
+        set_block_status blocked
 
         echo "Block set"
     fi
 }
 
 
-# Restore /etc/hosts to original uncontrolled state.
+# Restore /etc/hosts to original unblocked state.
 restore_original_hosts () {
     
     # Copy backup of original hosts file to /etc/hosts
     cp "$configDirectory/original_hosts_file" "/etc/hosts"
 
-    set_control_status uncontrolled
+    set_block_status unblocked
 
     echo "Block removed"
 }
@@ -47,7 +47,7 @@ restore_original_hosts () {
 
 # Takes plain list of urls and outputs them as host rules.
 # Output of this function is intended to be piped to /etc/hosts to start
-# controlled state.
+# blocked state.
 convert_urls_to_hosts () {
     while read -r i; do
         echo "0.0.0.0 $i" # IPv4 rule
@@ -56,24 +56,24 @@ convert_urls_to_hosts () {
 }
 
 
-# Checks if control is enabled.
+# Checks if block is enabled.
 # Returns true of false boolean
-check_if_controlled () {
-    if grep -q -x "controlled" "$configDirectory/linux_control_status"; then
+check_if_blocked () {
+    if grep -q -x "blocked" "$configDirectory/linux_control_status"; then
         true
-    elif grep -q -x "uncontrolled" "$configDirectory/linux_control_status"; then
+    elif grep -q -x "unblocked" "$configDirectory/linux_control_status"; then
         false
     fi
 }
 
 
-# Sets controlled status
-# Takes input as either "controlled" or "uncontrolled"
-set_control_status () {
-    if [[ "$1" == "controlled" ]] ; then
-        echo "controlled" > "$configDirectory/linux_control_status"
-    elif [[ "$1" == "uncontrolled" ]] ; then
-        echo "uncontrolled" > "$configDirectory/linux_control_status"
+# Sets blocked status
+# Takes input as either "blocked" or "unblocked"
+set_block_status () {
+    if [[ "$1" == "blocked" ]] ; then
+        echo "blocked" > "$configDirectory/linux_control_status"
+    elif [[ "$1" == "unblocked" ]] ; then
+        echo "unblocked" > "$configDirectory/linux_control_status"
     fi
 }
 
@@ -93,12 +93,12 @@ main () {
 
     if [[ "$1" == "start" ]] ; then
         echo "Setting block"
-        set_controlled_hosts
+        set_blocked_hosts
     elif [[ "$1" == "end" ]] ; then
         echo "Removing block"
         restore_original_hosts
     elif [[ "$1" == "status" ]] ; then
-        if check_if_controlled ; then
+        if check_if_blocked ; then
             echo "Block is enabled"
         else
             echo "Block is not enabled"
