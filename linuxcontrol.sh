@@ -12,6 +12,7 @@
 
 configDirectory="$HOME/.config/diwesser"
 statusFile="$configDirectory/linux_control_status"
+endBlockTimeFile="$configDirectory/linux_control_block_end"
 
 
 # Set /etc/hosts to blocked state.
@@ -85,12 +86,21 @@ epoc_now_plus_min () {
     local minutes=$1
     local seconds=$(echo "$minutes * 60" | bc -ql)
     local now=$(date +'%s')
-    echo -n $(echo "$now + $seconds" | bc -ql)
+    echo -n "$(echo "$now + $seconds" | bc -ql)"
 }
 
 
-check_block_expirations () {
-    linux_control_scheduled_end
+# Check if block has expired.
+# Returns true if it has expired, false if not
+block_has_expired () {
+    local endTime=$(tail -n 1 "$endBlockTimeFile")
+    local now=$(date +'%s')
+
+    if [[ $endTime > $now ]] ; then
+        false
+    else
+        true
+    fi
 }
 
 
