@@ -17,12 +17,12 @@
 #   shellcheck violations at the moment)
 #
 # Current obvious security problems:
-# - Temporarily stores /etc/hosts in user space
 # - List of urls is not sanitized or validated
 
 configDirectory="$HOME/.config/diwesser"
 statusFile="$configDirectory/linux_control_status"
 endBlockTimeFile="$configDirectory/linux_control_block_end"
+originalHostsBackup="/etc/hosts.linux_control_backup"
 
 
 # Set /etc/hosts to blocked state.
@@ -33,7 +33,7 @@ set_blocked_hosts () {
     else
     
         # Backup current /etc/hosts
-        cp /etc/hosts "$configDirectory/original_hosts_file"
+        cp /etc/hosts "$originalHostsBackup"
 
         # Append blocked url rules to /etc/hosts
         convert_urls_to_hosts >> /etc/hosts
@@ -49,7 +49,7 @@ set_blocked_hosts () {
 restore_original_hosts () {
     
     # Copy backup of original hosts file to /etc/hosts
-    cp "$configDirectory/original_hosts_file" "/etc/hosts"
+    cp "$originalHostsBackup" "/etc/hosts"
 
     set_block_status unblocked
 
