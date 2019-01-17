@@ -104,6 +104,21 @@ block_has_expired () {
 }
 
 
+# Checks for block expiration and remove if expired
+remove_block_when_expired () {
+    if block_has_expired ; then
+        restore_original_hosts
+    fi
+}
+
+
+# Writes block expiration in epoc time
+# Assumes block starts now
+# Takes block time in minutes
+set_block_expiration () {
+    echo "$(epoc_now_plus_min $1)" > $endBlockTimeFile
+}
+
 main () {
     local functionName="main"
 
