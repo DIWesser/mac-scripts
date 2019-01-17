@@ -11,6 +11,7 @@
 # - Add support for swiching between lists or merging lists
 
 configDirectory="$HOME/.config/diwesser"
+statusFile="$configDirectory/linux_control_status"
 
 
 # Set /etc/hosts to blocked state.
@@ -59,9 +60,9 @@ convert_urls_to_hosts () {
 # Checks if block is enabled.
 # Returns true of false boolean
 check_if_blocked () {
-    if grep -q -x "blocked" "$configDirectory/linux_control_status"; then
+    if grep -q -x "blocked" "$statusFile"; then
         true
-    elif grep -q -x "unblocked" "$configDirectory/linux_control_status"; then
+    elif grep -q -x "unblocked" "$statusFile"; then
         false
     fi
 }
@@ -71,9 +72,9 @@ check_if_blocked () {
 # Takes input as either "blocked" or "unblocked"
 set_block_status () {
     if [[ "$1" == "blocked" ]] ; then
-        echo "blocked" > "$configDirectory/linux_control_status"
+        echo "blocked" > "$statusFile"
     elif [[ "$1" == "unblocked" ]] ; then
-        echo "unblocked" > "$configDirectory/linux_control_status"
+        echo "unblocked" > "$statusFile"
     fi
 }
 
@@ -85,6 +86,11 @@ epoc_now_plus_min () {
     local seconds=$(echo "$minutes * 60" | bc -ql)
     local now=$(date +'%s')
     echo -n $(echo "$now + $seconds" | bc -ql)
+}
+
+
+check_block_expirations () {
+    linux_control_scheduled_end
 }
 
 
