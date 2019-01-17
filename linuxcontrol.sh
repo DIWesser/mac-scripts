@@ -83,9 +83,9 @@ set_block_status () {
 # Takes a number of minutes and adds them to current epoc as seconds
 # Returns epoc.
 epoc_now_plus_min () {
-    local minutes=$1
-    local seconds=$(echo "$minutes * 60" | bc -ql)
-    local now=$(date +'%s')
+    local minutes="$1"
+    local seconds="$(echo "$minutes * 60" | bc -ql)"
+    local now="$(date +'%s')"
     echo -n "$(echo "$now + $seconds" | bc -ql)"
 }
 
@@ -93,21 +93,13 @@ epoc_now_plus_min () {
 # Check if block has expired.
 # Returns true if it has expired, false if not
 block_has_expired () {
-    local endTime=$(tail -n 1 "$endBlockTimeFile")
-    local now=$(date +'%s')
+    local endTime="$(tail -n 1 "$endBlockTimeFile")"
+    local now="$(date +'%s')"
 
-    if [[ $endTime > $now ]] ; then
+    if [[ "$now" < "$endTime" ]] ; then
         false
     else
         true
-    fi
-}
-
-
-# Checks for block expiration and remove if expired
-remove_block_when_expired () {
-    if block_has_expired ; then
-        restore_original_hosts
     fi
 }
 
@@ -120,11 +112,30 @@ set_block_expiration () {
 }
 
 
+# Checks for block expiration and remove if expired
+remove_block_if_expired () {
+    if [[ $(block_has_expired) == true ]] ; then
+        restore_original_hosts
+        echo "" > "$endBlockTimeFile" # Wipe block time
+        echo "Expired block removed"
+    else
+        echo "Block has not expired"
+    fi
+}
+
+
 # Starts block and sets time for it to expire
 # Takes block length in minutes
 start_block_with_expiration () {
-    set_block_expiration "$1"
-    set_blocked_hosts
+    if [[ $(date +'%s') < $(tail -n1 $endBlockTimeFile) && check_if_blocked ]] ; then
+        echo "Block is in place and has not expired"
+    else
+        set_block_expiration "$1"
+        set_blocked_hosts
+    fi
+    echo "Block will expire at $(date -d @$(tail -n1 $endBlockTimeFile) \
+        +'%A at %I:%M %P')"
+    # Date formatted as "[day of week] at [HH]:[MM] [am/pm]"
 }
 
 
@@ -132,17 +143,36 @@ main () {
     local functionName="main"
 
     if [[ "$1" == "start" ]] ; then
+        if [[ -z "$2" ]] ; then
+            echo "Block time in minutes is needed."
+            echo "For an indefinite block, use 'endless'."
+        else
+            echo "Setting block"
+            start_block_with_expiration "$2"
+        fi
+
+    elif [[ "$1" == "endless" ]] ; then
         echo "Setting block"
         set_blocked_hosts
+        echo "" > "$endBlockTimeFile" # Wipe block time
     elif [[ "$1" == "end" ]] ; then
+        remove_block_if_expired
+
+    elif [[ "$1" == "purge" ]] ; then
         echo "Removing block"
         restore_original_hosts
+        echo "" > "$endBlockTimeFile" # Wipe block time
+        echo "Block time wiped"
+
     elif [[ "$1" == "status" ]] ; then
         if check_if_blocked ; then
-            echo "Block is enabled"
+            echo "Block is enabled and will expire at $(date -d \
+                  @$(tail -n1 $endBlockTimeFile) \
+                  +'%A at %I:%M %P')"
         else
             echo "Block is not enabled"
         fi
+
     else
         echo "Error from '$functionName': Unrecognized command."
     fi
