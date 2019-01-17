@@ -78,6 +78,16 @@ set_control_status () {
 }
 
 
+# Takes a number of minutes and adds them to current epoc as seconds
+# Returns epoc.
+epoc_now_plus_min () {
+    local minutes=$1
+    local seconds=$(echo "$minutes * 60" | bc -ql)
+    local now=$(date +'%s')
+    echo -n $(echo "$now + $seconds" | bc -ql)
+}
+
+
 main () {
     local functionName="main"
 
