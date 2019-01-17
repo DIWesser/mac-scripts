@@ -18,6 +18,7 @@
 #
 # Current obvious security problems:
 # - Temporarily stores /etc/hosts in user space
+# - List of urls is not sanitized or validated
 
 configDirectory="$HOME/.config/diwesser"
 statusFile="$configDirectory/linux_control_status"
