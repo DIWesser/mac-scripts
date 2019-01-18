@@ -46,12 +46,11 @@ homebrewCaskUpgrade () {
 pip2Upgrade () {
     if [[ $(command -v pip2) ]] ; then
         echo -e "\033[1mUpgrading Python pip2 programs.\033[0m"
-        # Lists outdated, trim unneeded info, format to one line, save as string
-        pip2Outdated=$(pip2 list --outdated --format=legacy |
-            awk -F'(' '{print $1}' | paste -s -d' '  -)
+        # Lists outdated, trim unneeded info, save as string
+        pip2Outdated=$(pip2 list --outdated --format=freeze | cut -d'=' -f1)
         if [[ $pip2Outdated ]] ; then # If there are pips to update
             echo "Upgrading pip2 apps."
-            pip2 install --upgrade "$pip2Outdated" # Updates everything in string
+            pip2 install --upgrade $pip2Outdated # Updates everything in string
         else
 	        echo "All pip2 apps are up to date."
         fi
@@ -62,12 +61,11 @@ pip2Upgrade () {
 pip3Upgrade () {
     if [[ $(command -v pip3) ]] ; then
         echo -e "\033[1mUpgrading Python pip3 programs.\033[0m"
-        # Lists outdated, trim unneeded info, format to one line, save as string
-        pip3Outdated=$(pip3 list --outdated --format=legacy |
-            awk -F'(' '{print $1}' | paste -s -d' '  -)
+        # Lists outdated, trim unneeded info, save as string
+        pip3Outdated=$(pip3 list --outdated --format=freeze | cut -d'=' -f1)
         if [[ $pip3Outdated ]] ; then # If there are pips to update
             echo "Upgrading pip3 apps."
-            pip3 install --upgrade "$pip3Outdated" # Updates everything in string
+            pip3 install --upgrade $pip3Outdated # Updates everything in string
         else
 	        echo "All pip3 are up to date."
         fi
