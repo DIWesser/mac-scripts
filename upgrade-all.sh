@@ -34,7 +34,7 @@ homebrewCaskUpgrade () {
         if [[ $(brew cask outdated) ]] ; then # If there are casks to update
             brew cask upgrade # Upgrade cask apps
             echo "Removing old cask app versions."
-            brew cask cleanup # Cleanup
+            brew cleanup # Cleanup
         else
         echo "All casks are up to date."
         fi
@@ -107,6 +107,13 @@ latexPackageUpgrade () {
         echo ""
         echo -e "\033[1mUpgrading LaTeX Packages\033[0m"
         sudo tlmgr update --self --all
+    fi
+}
+
+aptUpgrade () {
+    if [[ $(command -v apt) ]] ; then
+        sudo apt update # Update package lists
+        sudo apt upgrade -y # Install all packages
     fi
 }
 
