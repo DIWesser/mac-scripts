@@ -7,13 +7,13 @@ homebrewUpdate () {
     if [[ $(command -v brew) ]] ; then
         echo -e "\033[1mUpdating Homebrew lists\033[0m"
         brew update # Update lists of programs
+        echo ""
     fi
 }
 
 # Homebrew CLI Apps
 homebrewCliUpgrade () {
     if [[ $(command -v brew) ]] ; then
-        echo ""
         echo -e "\033[1mUpgrading Homebrew CLI apps\033[0m"
         if [[ $(brew outdated) ]] ; then # Check for updates
             brew upgrade # Upgrade CLI programs
@@ -22,6 +22,7 @@ homebrewCliUpgrade () {
         else
         echo "All Homebrew CLI apps are up to date."
         fi
+        echo ""
     fi
 }
 
@@ -29,7 +30,6 @@ homebrewCliUpgrade () {
 # GUI apps & Drivers
 homebrewCaskUpgrade () {
     if [[ $(command -v brew) ]] ; then
-        echo ""
         echo -e "\033[1mUpgrading Homebrew cask programs (GUI apps and drivers)\033[0m"
         if [[ $(brew cask outdated) ]] ; then # If there are casks to update
             brew cask upgrade # Upgrade cask apps
@@ -38,6 +38,7 @@ homebrewCaskUpgrade () {
         else
         echo "All casks are up to date."
         fi
+        echo ""
     fi
 }
 
@@ -54,6 +55,7 @@ pip2Upgrade () {
         else
 	        echo "All pip2 apps are up to date."
         fi
+        echo ""
     fi
 }
 
@@ -68,6 +70,7 @@ pip3Upgrade () {
             pip3 install --upgrade $pip3Outdated # Updates everything in string
         else
 	        echo "All pip3 are up to date."
+            echo ""
         fi
     fi
 }
@@ -76,11 +79,11 @@ pip3Upgrade () {
 # macOS
 macosUpgrade () {
 if [[ $(command -v softwareupdate) ]] ; then
-    echo ""
     echo -e "\033[1mUpgrading macOS\033[0m"
     sudo softwareupdate -ia | grep -v 'No updates are available.' \
 	    | grep -v 'Software Update Tool' | grep -v 'Finding available software'
     echo "macOS is up to date"
+    echo ""
 fi
 }
 
@@ -88,13 +91,13 @@ fi
 # App Store
 masUpgrade () {
     if [[ $(command -v mas) ]] ; then
-        echo ""
         echo -e "\033[1mUpgrading App Store programs\033[0m"
         # Lists outdated apps ecluding those requiring manual authentication
         masOutdated=$(mas list | grep -v '856514119' | grep -v '424389933' |
             cut -f1 -d' ' | paste -s -d' '  -)
         mas upgrade "$masOutdated" | grep -v 'Warning: Nothing found to upgrade'
         echo "All App Store apps are up to date."
+        echo ""
     fi
 }
 
@@ -102,9 +105,9 @@ masUpgrade () {
 # LaTeX Packages
 latexPackageUpgrade () {
     if [[ $(command -v tlmgr) ]] ; then
-        echo ""
         echo -e "\033[1mUpgrading LaTeX Packages\033[0m"
         sudo tlmgr update --self --all
+        echo ""
     fi
 }
 
@@ -112,9 +115,9 @@ latexPackageUpgrade () {
 # Microsoft Office
 microsoftOfficeUpgrade () {
     if [[ $(command -v /Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate) ]] ; then
-        echo ""
         echo -e "\033[1mUpgrading Microsoft Office Programs\033[0m"
         /Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install
+        echo ""
     fi
 }
 
@@ -138,7 +141,6 @@ main () {
     latexPackageUpgrade
     microsoftOfficeUpgrade
 
-    echo ""
     echo -e "\033[1mUpdates complete.\033[0m"
     echo -e "\033[1mSome apps may require a reboot to be used.\033[0m"
 }
