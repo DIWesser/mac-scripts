@@ -27,11 +27,8 @@ if [[ $(command -v brew) ]] ; then
     #############################################################################
     echo ""
     echo -e "\033[1mUpgrading Homebrew cask programs (GUI apps and drivers)\033[0m"
-    # Lists outdated, trim unneeded info, format to one line, save as string
-    outdatedCasks=$(brew cask outdated | awk -F'(' '{print $1}' |
-        paste -s -d' '  -)
-    if [[ $outdatedCasks ]] ; then # If there are casks to update
-        brew cask reinstall $outdatedCasks # Updates everything in string
+    if [[ $(brew cask outdated) ]] ; then # If there are casks to update
+        brew cask upgrade # Upgrade cask apps
         echo "Removing old cask app versions."
         brew cask cleanup # Cleanup
     else
