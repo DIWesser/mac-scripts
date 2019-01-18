@@ -20,7 +20,7 @@ homebrewCliUpgrade () {
             echo "Removing old Homebrew CLI versions"
             brew cleanup # Remove old versions of CLI programs
         else
-        echo "All Homebrew CLI apps are up to date."
+            echo "All Homebrew CLI apps are up to date."
         fi
         echo ""
     fi
@@ -36,7 +36,7 @@ homebrewCaskUpgrade () {
             echo "Removing old cask app versions."
             brew cleanup # Cleanup
         else
-        echo "All casks are up to date."
+            echo "All casks are up to date."
         fi
         echo ""
     fi
@@ -53,7 +53,7 @@ pip2Upgrade () {
             echo "Upgrading pip2 apps."
             pip2 install --upgrade $pip2Outdated # Updates everything in string
         else
-	        echo "All pip2 apps are up to date."
+            echo "All pip2 apps are up to date."
         fi
         echo ""
     fi
@@ -69,7 +69,7 @@ pip3Upgrade () {
             echo "Upgrading pip3 apps."
             pip3 install --upgrade $pip3Outdated # Updates everything in string
         else
-	        echo "All pip3 are up to date."
+            echo "All pip3 are up to date."
             echo ""
         fi
     fi
@@ -81,7 +81,7 @@ macosUpgrade () {
 if [[ $(command -v softwareupdate) ]] ; then
     echo -e "\033[1mUpgrading macOS\033[0m"
     sudo softwareupdate -ia | grep -v 'No updates are available.' \
-	    | grep -v 'Software Update Tool' | grep -v 'Finding available software'
+        | grep -v 'Software Update Tool' | grep -v 'Finding available software'
     echo "macOS is up to date"
     echo ""
 fi
