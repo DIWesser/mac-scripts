@@ -110,13 +110,6 @@ latexPackageUpgrade () {
     fi
 }
 
-aptUpgrade () {
-    if [[ $(command -v apt) ]] ; then
-        sudo apt update # Update package lists
-        sudo apt upgrade -y # Install all packages
-    fi
-}
-
 
 # Microsoft Office
 microsoftOfficeUpgrade () {
@@ -124,6 +117,14 @@ microsoftOfficeUpgrade () {
         echo ""
         echo -e "\033[1mUpgrading Microsoft Office Programs\033[0m"
         /Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install
+    fi
+}
+
+# apt (Ubuntu, Debian, and derivatives)
+aptUpgrade () {
+    if [[ $(command -v apt) ]] ; then
+        sudo apt update # Update package lists
+        sudo apt upgrade -y # Install all packages
     fi
 }
 
@@ -141,4 +142,7 @@ main () {
 
     echo ""
     echo -e "\033[1mUpdates complete.\033[0m"
+    echo -e "\033[1mSome apps may require a reboot to be used.\033[0m"
 }
+
+main
