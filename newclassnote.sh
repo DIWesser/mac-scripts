@@ -10,8 +10,8 @@
 # - that you have my class schedule
 #
 # Ideas:
-# - Maybe check if there is already a note for current course
-# - make it possible to specify course, lecturer, etc. when calling the script
+# - Maybe check if there is already a note for current lecture.
+# - Make it possible to specify course, lecturer, etc. when calling the script.
 
 
 timeZone="America/Halifax"
@@ -136,6 +136,8 @@ main() {
 
     # Open file
     $EDITOR "$notePath"
+    # When file is closed, open its folder in ranger.
+    ranger "$noteFolder"
 }
 
 main
