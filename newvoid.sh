@@ -12,7 +12,7 @@ getTitle() {
 
 main() {
     getTitle
-    $EDITOR "$voidDir/$title.md"
+    $EDITOR "$voidDir/$creationDate $title.md"
     ranger "$voidDir"
 }
 
