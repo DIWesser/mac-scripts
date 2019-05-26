@@ -2,11 +2,12 @@
 
 # This script maintains a lossly clone of a music directory.
 # It creates a list of new or updated files, creates a lossy copy, and saves
-# that copy to a lossy directory with the same path.
+# that copy to a lossy directory with the artist/album/track path.
 # 
 # The script assumes that the music directories are structured as follows:
-# <(flac|mp3) root>/<artist>/<album>/<track.(flac|mp3)>
+# <(flac|mp3) root>/<artist>/<album>/<track>.(flac|mp3)
 # and the file and directory names do not contain `/`.
+# The script only works with FLAC source material for now.
 
 losslessRoot="$HOME/Desktop/Music"
 lossyRoot="$HOME/Desktop/MP3"
@@ -36,7 +37,9 @@ find_artist () {
     echo "Artist is: $artist"
 }
 
-# Takes full file path and root as argument. Returns artist/album/track
+# Finds `<artist>/<album>/<track>` in full path.
+# e.g. /who/cares/`<ARTIST>/<ALBUM>/<TRACK>`.meh
+# Takes full path and root as argument.
 between_root_and_ext () {
     fullPath="$1"
     rootPath="$2"
@@ -46,12 +49,13 @@ between_root_and_ext () {
 }
 
 # Takes partial file path between root and extension
-convert_to_mp3 () {
+# Converts from FLAC to MP3.
+flac_to_mp3 () {
     ffmpeg -i "$losslessRoot/$@.flac" "$lossyRoot/$@.mp3"
 }
 
 ################################################################################
-# Mainly exists for inpiration. Do not use.
+# Mainly exists for inspiration. Do not use.
 ################################################################################
 
 # Takes directory as argument
