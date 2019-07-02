@@ -8,16 +8,32 @@
 
 sourceFolder="$HOME/Git/scripts"
 linkFolder="$HOME/bin"
+desktopSource="$sourceFolder/desktop_files"
+desktopDest="$HOME/.local/share/applications"A
+iconSource="$sourceFolder/icons"
+iconDest="$HOME/.local/share/icons"
 
 # Create directory
 mkdir -p ~/bin
-ln -s $sourceFolder/upgrade-all.sh $linkFolder/upgrade-all
-ln -s $sourceFolder/pomodoro.sh    $linkFolder/pomodoro
-ln -s $sourceFolder/journal.sh     $linkFolder/journal
-ln -s $sourceFolder/mytime.sh      $linkFolder/mytime
-ln -s $sourceFolder/otfplay.sh     $linkFolder/otfplay
-ln -s $sourceFolder/pomodoro.sh    $linkFolder/pomodoro
-ln -s $sourceFolder/themeswitch.sh $linkFolder/themeswitch
-ln -s $sourceFolder/timer.sh       $linkFolder/timer
-ln -s $sourceFolder/wanip.sh       $linkFolder/wanip
-ln -s $sourceFolder/calc.sh        $linkFolder/calc
+
+# Link scripts
+ln -s $sourceFolder/upgrade-all.sh    $linkFolder/upgrade-all
+ln -s $sourceFolder/pomodoro.sh       $linkFolder/pomodoro
+ln -s $sourceFolder/journal.sh        $linkFolder/journal
+ln -s $sourceFolder/mytime.sh         $linkFolder/mytime
+ln -s $sourceFolder/otfplay.sh        $linkFolder/otfplay
+ln -s $sourceFolder/pomodoro.sh       $linkFolder/pomodoro
+ln -s $sourceFolder/themeswitch.sh    $linkFolder/themeswitch
+ln -s $sourceFolder/timer.sh          $linkFolder/timer
+ln -s $sourceFolder/wanip.sh          $linkFolder/wanip
+ln -s $sourceFolder/calc.sh           $linkFolder/calc
+
+# Link .desktop files
+ln -s $desktopSource/daynight.desktop $desktopDest/daynight.desktop
+ln -s $desktopSource/pocket.desktop   $desktopDest/pocket.desktop
+ln -s $desktopSource/sep.desktop      $desktopDest/sep.desktop
+
+# Link icons
+ln -s $iconSource/daynight.png        $iconDest/daynight.png
+ln -s $iconSource/pocket.png          $iconDest/pocket.png
+ln -s $iconSource/sep.png             $iconDest/sep.png
