@@ -148,28 +148,33 @@ main() {
         echo "You do not have any classes scheduled at this time."
         exit 1
     fi
-    
-    # Update course folder name
+
+    # Fill course folder name
     complete_course_folder
 
     # Update note folder with new course name
     noteFolder="$termRoot/$courseFolder/Notes"
 
-    # Ask user what title they want to give the note
-    getTitle
+    # If course does not use normal note structure and file type
+    if [[ "$course" == "example"  ]] ; then
+        xdg-open "$termRoot/$courseFolder/notes.docx"
+    else
+       # Ask user what title they want to give the note
+       getTitle
+ 
+       # Create file
+       touch "$notePath"
 
-    # Create file
-    touch "$notePath"
+       # Fill in file header and title
+       createHeader
+       appendTitle
 
-    # Fill in file header and title
-    createHeader
-    appendTitle
+       # Open file
+       $EDITOR "$notePath"
 
-    # Open file
-    $EDITOR "$notePath"
-
-    # When file is closed, open its folder in ranger.
-    ranger "$noteFolder"
+       # When file is closed, open its folder in ranger.
+       ranger "$noteFolder"
+    fi
 }
 
 main
