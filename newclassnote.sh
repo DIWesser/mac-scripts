@@ -18,6 +18,7 @@ timeZone="America/Halifax"
 courseFound=false
 creationDate="$(env TZ=$timeZone date +'%Y-%m-%d')"
 course=""
+courseFolder=""
 lecturer=""
 title=""
 termRoot="$HOME/Dropbox/Education/H. 2018-2019 Kings III Term 2"
@@ -86,18 +87,27 @@ findCourse() {
             lecturer="Shaun Miller"
         fi
     fi
-
-    # Update note folder with new course name
-    noteFolder="$termRoot/$course/Notes"
 }
 
+
+# Uses course code to find the full name of course folder. It is meant to
+# handle course folder name when the full path includes the course title.
+# Requires: $course, $termRoot
+# Sets: $courseFolder
+complete_course_folder() {
+    for i in "$termRoot"; do
+        if [[ "${i:0:9}" == "$course" ]] ; then
+            courseFolder="$i"
+        fi
+    done
+}
 
 # Requires: $course, $creationDate, and $noteFolder
 # Asks user for title
 # Sets: $title, $noteFileName, $notePath
 getTitle() {
     # Ask for title
-    echo "What title do you want to give today's '$course' note?"
+    echo "What title do you want to give today's '$courseFolder' note?"
     read "title"
 
     # Update file name and path
@@ -138,6 +148,12 @@ main() {
         echo "You do not have any classes scheduled at this time."
         exit 1
     fi
+    
+    # Update course folder name
+    complete_course_folder
+
+    # Update note folder with new course name
+    noteFolder="$termRoot/$courseFolder/Notes"
 
     # Ask user what title they want to give the note
     getTitle
@@ -151,6 +167,7 @@ main() {
 
     # Open file
     $EDITOR "$notePath"
+
     # When file is closed, open its folder in ranger.
     ranger "$noteFolder"
 }
