@@ -34,41 +34,56 @@ findCourse() {
     local dayOfWeek=$(env TZ=$timeZone date +'%A')
     local currentTime=$(env TZ=$timeZone date +'%H%M')
     if [[ "$dayOfWeek" == "Monday" ]] ; then
-        if [[ "$currentTime" > "1015" && "$currentTime" < "1225" ]] ; then
+        if [[ "$currentTime" > "1020" && "$currentTime" < "1120" ]] ; then
             courseFound=true
             course="CTMP 3000"
             lecturer="Gordon McOuat"
-        elif [[ "$currentTime" > "1515" && "$currentTime" < "1655" ]] ; then
+        elif [[ "$currentTime" > "1120" && "$currentTime" < "1225" ]] ; then
             courseFound=true
-            course="CSCI 3101"
-            lecturer="Darren Abramson"
+            course="PHIL 2475"
+            lecturer="Shaun Miller"
+        elif [[ "$currentTime" > "1320" && "$currentTime" < "1525" ]] ; then
+            courseFound=true
+            course="CTMP 2000"
+            lecturer="Sarah Clift"
         fi
     elif [[ "$dayOfWeek" == "Tuesday" ]] ; then
-        if [[ "$currentTime" > "1245" && "$currentTime" < "1425" ]] ; then
+        if [[ "$currentTime" > "0950" && "$currentTime" < "1125" ]] ; then
             courseFound=true
-            course="PHIL 2020"
-            lecturer="Greg Scherkoske"
+            course="CTMP 3215"
+            lecturer="Kathryn A. Morris"
+        elif [[ "$currentTime" > "1550" && "$currentTime" < "1725" ]] ; then
+            courseFound=true
+            course="CTMP 2206"
+            lecturer="Stephen R. Boos"
         fi
     elif [[ "$dayOfWeek" == "Wednesday" ]] ; then
-        if [[ "$currentTime" > "1015" && "$currentTime" < "1125" ]] ; then
+        if [[ "$currentTime" > "1020" && "$currentTime" < "1125" ]] ; then
             courseFound=true
             course="CTMP 3000"
-        elif [[ "$currentTime" > "1515" && "$currentTime" < "1655" ]] ; then
+        elif [[ "$currentTime" > "1125" && "$currentTime" < "1225" ]] ; then
             courseFound=true
-            course="CSCI 3101"
-            lecturer="Darren Abramson"
+            course="PHIL 2475"
+            lecturer="Shaun Miller"
+        elif [[ "$currentTime" > "1320" && "$currentTime" < "1425" ]] ; then
+            courseFound=true
+            course="CTMP 2000"
         fi
     elif [[ "$dayOfWeek" == "Thursday" ]] ; then
-        if [[ "$currentTime" > "1245" && "$currentTime" < "1425" ]] ; then
+        if [[ "$currentTime" > "0950" && "$currentTime" < "1125" ]] ; then
             courseFound=true
-            course="PHIL 2020"
-            lecturer="Greg Scherkoske"
+            course="CTMP 3215"
+            lecturer="Kathryn A. Morris"
+        elif [[ "$currentTime" > "1550" && "$currentTime" < "1725" ]] ; then
+            courseFound=true
+            course="CTMP 2206"
+            lecturer="Stephen R. Boos"
         fi
     elif [[ "$dayOfWeek" == "Friday" ]] ; then
-        if [[ "$currentTime" > "1715" && "$currentTime" < "2025" ]] ; then
+        if [[ "$currentTime" > "1120" && "$currentTime" < "1225" ]] ; then
             courseFound=true
-            course="CTMP 2203"
-            lecturer="Michael Bennett"
+            course="PHIL 2475"
+            lecturer="Shaun Miller"
         fi
     fi
 
