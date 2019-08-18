@@ -95,9 +95,12 @@ findCourse() {
 # Requires: $course, $termRoot
 # Sets: $courseFolder
 complete_course_folder() {
+    # For all folders/files in term root
     for i in "$termRoot"; do
+        # if first 9 characters of folder/file == course code
         if [[ "${i:0:9}" == "$course" ]] ; then
             courseFolder="$i"
+            break
         fi
     done
 }
