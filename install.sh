@@ -6,15 +6,16 @@
 # To access add the following line to .bashrc/bash_profile
 # export PATH=~/bin:$PATH
 
-sourceFolder="$HOME/Git/scripts"
+sourceFolder="$HOME/git/scripts"
 linkFolder="$HOME/bin"
 desktopSource="$sourceFolder/desktop_files"
-desktopDest="$HOME/.local/share/applications"A
+desktopDest="$HOME/.local/share/applications"
 iconSource="$sourceFolder/icons"
 iconDest="$HOME/.local/share/icons"
 
 # Create directory
-mkdir -p ~/bin
+mkdir -p "$HOME/bin"
+mkdir -p "$HOME/.local/share/icons"
 
 # Link scripts
 ln -s $sourceFolder/calc.sh             $linkFolder/calc

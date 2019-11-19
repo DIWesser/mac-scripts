@@ -2,7 +2,7 @@
 Name=Day/Night
 GenericName=gtk theme toggle
 #Comment=Browse the Web
-Exec=toggledarktheme
+Exec=/home/daniel/bin/toggledarktheme
 Icon=daynight
 Terminal=false
 Type=Application

@@ -5,7 +5,7 @@
 
 new_theme="Adwaita-dark"
 current_theme="$(gsettings get org.gnome.desktop.interface gtk-theme |
-                 sed "s/^'//; s/'\$//")" # Remove single quotes
+    sed "s/^'//; s/'\$//")" # Remove single quotes
 echo "Current theme is $current_theme"
 
 if [ $current_theme = "Adwaita-dark" ]; then
