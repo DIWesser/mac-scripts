@@ -13,6 +13,16 @@
 
 archive_dir="/run/media/daniel/DIW Storage 0/video/youtube channels"
 
+new_subscription () {
+    local url=""
+    local channel=""
+    echo -ne "Enter channel URL: "
+    read "url"
+    channel="$(youtube-dl --get-filename --playlist-end 1 --output '%(uploader)s' $url)"
+    mkdir "$archive_dir"/"$channel"
+    echo "$channel_url" > "$archive_dir"/"$channel"/channel_url
+}
+
 download () {
     youtube-dl \
         --download-archive downloaded \
@@ -25,7 +35,7 @@ download () {
         --all-subs \
         --embed-subs \
         --write-info-json \
-        --output "%(upload_date)s %(title)s [%(resolution)s] [Youtube ID: %(id)s].%(ext)s" \
+        --output "%(upload_date)s %(title)s [Youtube ID: %(id)s].%(ext)s" \
         "$1"
 }
 
