@@ -8,6 +8,10 @@
 # - Confirm folder name when adding new channel.
 # - Allow for per channel config file (e.g. parsing consistantly formatted
 #   channel titles to extract actual video title).
+# - Parse video names to remove channel names and find episode numbers where
+#   applicable. Would likely require per channel config files. It would
+#   probably work best if file naming was acheived through parsing the json file
+#   directly rather than using youtube-dl.
 # - Confirm dir has a channel_url file.
 
 archive_dir="/run/media/daniel/DIW Storage 0/video/youtube channels"
