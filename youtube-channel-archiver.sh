@@ -54,7 +54,7 @@ function download () {
         --all-subs \
         --embed-subs \
         --write-info-json \
-        --output "%(upload_date)s %(title)s [Video ID: %(id)s].%(ext)s" \
+        --output "%(upload_date)s %(title)s [%(extractor)s_id %(id)s].%(ext)s" \
         "$1"
 }
 
