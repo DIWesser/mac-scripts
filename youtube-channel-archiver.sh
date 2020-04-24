@@ -13,6 +13,8 @@
 #   probably work best if file naming was acheived through parsing the json file
 #   directly rather than using youtube-dl.
 # - Confirm dir has a channel_url file.
+# - Do something to fix how Jellyfin handles episode numbers and titles. Maybe
+#   edit the .NFOs and set the date as the epsode number? (Hint: `xmlstarlet`)
 
 archive_dir="/run/media/daniel/DIW Storage 0/video/youtube channels"
 alias printf='builtin printf'
