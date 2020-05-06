@@ -1,4 +1,8 @@
-2018-01-07  
+# Todo
+
+- [ ] Is the installer even working?
+- [ ] Isn't there a way for the install sript to know where it is located and link the scripts accordingly?
+- [ ] Maybe make the desktop files take into account script location.
 
 # Notes
 
