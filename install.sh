@@ -6,7 +6,7 @@
 
 
 sourceFolder="$(pwd)"
-linkFolder="$HOME/bin"
+linkFolder="$HOME/.local/bin"
 desktopSource="$sourceFolder/desktop_files"
 desktopDest="$HOME/.local/share/applications"
 iconSource="$sourceFolder/icons"
