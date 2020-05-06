@@ -8,15 +8,14 @@ noteDir="$HOME/Dropbox/Notes/"
 noteFile="$noteDir/Stray Words.md"
 tmpfile="$(mktemp)"
 
-appendWordsToNote() {
-    echo "" >> "$noteFile"
-    echo "**$creationDate:**  " >> "$noteFile"
+add_words_to_note() {
+    printf "\n**$creationDate:**  " >> "$noteFile"
     cat "$tmpfile" >> "$noteFile"
 }
 
 main() {
     $EDITOR "$tmpfile" # Get words in temp file
-    appendWordsToNote
+    add_words_to_note
     rm "$tmpfile" # Remove temp file of words
     ranger "$noteDir"
 }
