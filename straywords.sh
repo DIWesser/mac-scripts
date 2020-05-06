@@ -3,10 +3,10 @@
 # This script adds snippets to my files of random notes
 
 timeZone="America/Halifax"
-creationDate="$(env TZ=$timeZone date +'%Y-%m-%d')"
+creationDate="$(env TZ=$timeZone date +'%Y-%m-%d %Z')"
 noteDir="$HOME/Dropbox/Notes/"
 noteFile="$noteDir/Stray Words.md"
-tmpfile="/tmp/straywords.$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c10).md"
+tmpfile="$(mktemp)"
 
 appendWordsToNote() {
     echo "" >> "$noteFile"
