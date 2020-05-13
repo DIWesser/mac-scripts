@@ -27,19 +27,19 @@ fi
 #################################################################################
 # Check for source directory
 if [ ! -r "$sourceDir" ]; then
-    echo "Source $sourceDir not readable - Cannot start the sync process"
+    printf "Source $sourceDir not readable - Cannot start the sync process\n"
     exit;
 fi
 
 # Check for backup directory
 if [ ! -w "$destDir" ]; then
-    echo "Destination $destDir not writeable - Cannot start the sync process"
+    printf "Destination $destDir not writeable - Cannot start the sync process\n"
     exit;
 fi
 
 # Check archive size
 if [[ $(df -PH . | tail -1 | awk '{print $4}' | cut -d'G' -f1) -lt $pruneValue ]] ; then
-    echo "Warning! Archive is under $pruneValue GB"
+    printf "Warning! Archive is under $pruneValue GB\n"
 fi
 
 #################################################################################

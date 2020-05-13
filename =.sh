@@ -2,4 +2,4 @@
 #
 # Calculator for terminal
 
-echo "$@" | bc -ql
+printf "$@\n" | bc -ql
