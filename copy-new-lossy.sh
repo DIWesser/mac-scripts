@@ -17,7 +17,7 @@ find_track () {
     fullPath="$@"
     trackFile="${fullPath##*/}"
     track="${trackFile%.*}"
-    echo "track is: $track"
+    printf "track is: $track\n"
 }
 
 # Finds album from full file path
@@ -25,7 +25,7 @@ find_album () {
     fullPath="$@"
     albumPath="${fullPath%/*}"
     album="${albumPath##*/}"
-    echo "Album is: $album"
+    printf "Album is: $album\n"
 }
 
 # Finds artist from full file path
@@ -34,7 +34,7 @@ find_artist () {
     albumPath="${fullPath%/*}"
     artistPath="${albumPath%/*}"
     artist="${artistPath##*/}"
-    echo "Artist is: $artist"
+    printf "Artist is: $artist\n"
 }
 
 # Finds `<artist>/<album>/<track>` in full path.
@@ -45,7 +45,7 @@ between_root_and_ext () {
     rootPath="$2"
     noRootWithExt="${fullPath#"$rootPath"}"
     noRootOrExt="${noRootWithExt%.*}"
-    echo "$noRootOrExt"
+    printf "$noRootOrExt\n"
 }
 
 # Takes partial file path between root and extension
