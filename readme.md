@@ -1,3 +1,5 @@
+This project has moved to [gitlab](https://gitlab.com/diwesser/scripts).
+
 # Todo
 
 - [ ] Is the installer even working?
